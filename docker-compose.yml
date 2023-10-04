@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  microservice:
+    restart: unless-stopped
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/home/microservice_for_trading/microservice
+    ports:
+      - "8989:8989"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    command:
+      mongod --quiet --logpath /dev/null
