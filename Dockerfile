@@ -6,11 +6,9 @@ COPY Pipfile.lock Pipfile ./
 
 RUN apk --no-cache add \
     gcc\
-    jpeg-dev\
     libc-dev\
     libffi-dev\
     musl-dev\
-    postgresql-dev\
     python3-dev\
     zlib-dev\
     && pip3 install pipenv\
