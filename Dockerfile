@@ -38,5 +38,6 @@ RUN chown -R $USER:$USER $APP_HOME
 USER $USER
 
 RUN chmod +x $APP_HOME/microservice-entrypoint.sh
+RUN chmod +x $APP_HOME/kafka-entrypoint.sh
 
 ENTRYPOINT sh $APP_HOME/microservice-entrypoint.sh
