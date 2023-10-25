@@ -7,6 +7,10 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 flake8 = "*"
+motor = "*"
+websockets = "*"
+requests-async = "*"
+aiokafka = "*"
 
 [dev-packages]
 
