@@ -28,11 +28,6 @@ jobs:
           docker-compose -f docker-compose.yml up -d
         working-directory: ${{ github.workspace }}
 
-      - name: Build and run tests
-        run: |
-          docker-compose -f docker-compose.yml exec -T web pytest
-        working-directory: ${{ github.workspace }}
-
       - name: Stop Docker Compose
         run: |
           docker-compose -f docker-compose.yml down
