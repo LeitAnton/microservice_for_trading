@@ -1,0 +1,39 @@
+name: Docker Compose CI/CD
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create mynetwork
+        run: docker network create mynetwork
+        working-directory: ${{ github.workspace }}
+
+      - name: Decrypt and create .env file
+        run: echo ${{ secrets.DOCKER_ENV_FILE }} | base64 -d > .env
+        working-directory: ${{ github.workspace }}
+
+      - name: Set up Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
+        working-directory: ${{ github.workspace }}
+
+      - name: Build and run tests
+        run: |
+          docker-compose -f docker-compose.yml exec -T web pytest
+        working-directory: ${{ github.workspace }}
+
+      - name: Stop Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml down
+        working-directory: ${{ github.workspace }}
